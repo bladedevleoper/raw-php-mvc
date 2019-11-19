@@ -9,7 +9,7 @@ class Route
     public static $validRoutes = [];
     private static $controller;
     private static $method;
-    public static $namespace = "\\MVC\\Controllers\\";
+    private static $namespace = "\\MVC\\Controllers\\";
     public static $currentObj;
 
     public static function set($route, $function)
@@ -24,16 +24,16 @@ class Route
 
             //come up with better naming convention and try to look at Single Responsibility
             if (gettype($function) == 'string') {
+
                 $split = self::splitFunction($function);
 
+                self::$controller = $split[0];
+                self::$method = $split[1];
 
-                $space = self::$namespace.$split[0];
-                $method = $split[1];
-                $controller = new $space();
+                self::doesClassExist();
+                self::doesMethodExistsInClass(self::$controller);
+                //self::callMethod();
 
-                if (method_exists($controller, $method)) {
-                    $controller::$method();
-                }
             }
         }
 
@@ -43,5 +43,47 @@ class Route
     {
         return explode('@', $function);
     }
+
+    private static function callMethod()
+    {
+
+    }
+
+
+    //checks if class exists
+    private static function doesClassExist()
+    {
+    try {
+        if (!class_exists(self::bindClassAndNamespace())) {
+            throw Exception('Sorry there seems to be an error');
+        }
+
+    } catch (Exception $e) {
+        echo 'error: ' .  $e->getMessage();
+    }
+
+        $controller = self::bindClassAndNamespace();
+        self::$controller = new $controller();
+
+
+
+        return true;
+    }
+
+
+    private static function doesMethodExistsInClass($controller)
+    {
+        if (method_exists($controller, self::$method)) {
+            $method = self::$method;
+            $controller::$method();
+        }
+    }
+
+    private static function bindClassAndNamespace()
+    {
+        return self::$namespace.self::$controller;
+    }
+
+
 
 }

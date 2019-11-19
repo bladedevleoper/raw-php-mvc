@@ -1,0 +1,60 @@
+/**
+    Notes on .htaccess files
+**/
+
+
+#this will stop access to a directory
+Options -Indexes
+
+
+#this will allow let us call pages like index.php
+Options -MultiViews
+
+
+#allows rewrite rules
+RewriteEngine On
+
+
+##rewrite base, depending which directory we are allowing rewritting, we must specify to that folder path.
+RewriteBase /public/index.php
+
+#directory checking
+RewriteCond %{REQUEST_FILENAME} !-d
+
+#file checking
+RewriteCond %{REQUEST_FILENAME} !-f
+
+#using the rewrite rule to take the current url to pass it through index.php as a query string
+#this will basically put the url as a query string for example url.co.uk/index/james/king
+#if we echo out $_GET['url'] this will then output index/james/king
+RewriteRule ^(.+)$ index.php?url=$1 [QSA, L]
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+Put this within the Request Class
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+if (isset($_GET['url') {
+
+    //the rtrim() will trim any whitespace of the right of the url and also we want to strip out any remaining backslash
+    //explode will then make an array of the string
+    return $url = explode('/', filter_var(rtrim(%_GET['url'], '/'), FILTER_SANITIZE_URL));
+}
+
+
+//within our view create a view class that gets instantiated within the __constructor of the controller
+
+//look at passing parameters too a Request class an working out if parameters are being passed
+
+
+class View
+{
+    public static function view()
+    {
+        
+    }
+}
