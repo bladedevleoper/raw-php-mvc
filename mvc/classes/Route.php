@@ -3,6 +3,8 @@
 namespace MVC\Classes\Routing;
 //use MVC\Controllers;
 
+use Exception;
+
 class Route
 {
 
@@ -32,7 +34,6 @@ class Route
 
                 self::doesClassExist();
                 self::doesMethodExistsInClass(self::$controller);
-                //self::callMethod();
 
             }
         }
@@ -53,30 +54,39 @@ class Route
     //checks if class exists
     private static function doesClassExist()
     {
-    try {
-        if (!class_exists(self::bindClassAndNamespace())) {
-            throw Exception('Sorry there seems to be an error');
-        }
+        try {
+            if (!class_exists(self::bindClassAndNamespace())) {
+                throw new Exception('Sorry there seems to be an error');
+            }
 
-    } catch (Exception $e) {
-        echo 'error: ' .  $e->getMessage();
-    }
+        } catch (Exception $e) {
+
+            echo 'error: ' .  $e->getMessage();
+        }
 
         $controller = self::bindClassAndNamespace();
         self::$controller = new $controller();
-
-
 
         return true;
     }
 
 
+
     private static function doesMethodExistsInClass($controller)
     {
-        if (method_exists($controller, self::$method)) {
-            $method = self::$method;
-            $controller::$method();
+        try {
+
+            if (method_exists($controller, self::$method)) {
+                $method = self::$method;
+                return $controller::$method();
+            }
+
+            throw new Exception('404 Not Found');
+
+        } catch (Exception $e) {
+            echo 'Error ' . $e->getMessage();
         }
+
     }
 
     private static function bindClassAndNamespace()

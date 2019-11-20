@@ -7,6 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'MVC\\Classes\\Routing\\Route' => $baseDir . '/mvc/classes/Route.php',
-    'MVC\\Controllers\\AboutController' => $baseDir . '/mvc/controllers/AboutController.php',
-    'MVC\\Controllers\\Controller' => $baseDir . '/mvc/controllers/Controller.php',
+    'MVC\\Controllers\\AboutController' => $baseDir . '/mvc/Controllers/AboutController.php',
+    'MVC\\Controllers\\Controller' => $baseDir . '/mvc/Controllers/Controller.php',
+    'MVC\\Request\\Request' => $baseDir . '/mvc/classes/Request.php',
+    'MVC\\View\\View' => $baseDir . '/mvc/classes/View.php',
 );
