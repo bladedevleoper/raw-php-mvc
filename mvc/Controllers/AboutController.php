@@ -7,10 +7,10 @@ namespace MVC\Controllers;
 class AboutController extends Controller
 {
 
-    public function createView()
+    public static function createView()
     {
 
-        return $this->view->view();
+        return self::$view->view();
 
 
     }

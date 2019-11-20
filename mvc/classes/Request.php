@@ -4,10 +4,15 @@ namespace MVC\Request;
 
 class Request
 {
-    public $url;
+//    public $url;
+//
+//    public function __construct()
+//    {
+//        $this->url = $_SERVER['REQUEST_URI'];
+//    }
 
-    public function __construct()
+    public static function request()
     {
-        $this->url = $_SERVER['REQUEST_URI'];
+        return $_GET['url'];
     }
 }

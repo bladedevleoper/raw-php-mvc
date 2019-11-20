@@ -2,43 +2,57 @@
 
 namespace MVC\Classes\Routing;
 //use MVC\Controllers;
-
+use MVC\Request\Request;
 use Exception;
 
 class Route
 {
 
-    public static $validRoutes = [];
+    //public static $validRoutes = [];
+    public $validRoutes = [];
     private static $controller;
     private static $method;
     private static $namespace = "\\MVC\\Controllers\\";
-    public static $currentObj;
+    public $requestObj;
 
-    public static function set($route, $function)
+
+    //use this to push to an array
+//    public static function set($route, $function)
+//    {
+//        //check if array key exists from url
+//        self::$validRoutes[$route] = $function;
+//
+//        //need to put this code somewhere else
+//        if ($_GET['url'] == $route) {
+//
+//            if (is_callable($function)) {
+//                $function->__invoke();
+//            }
+//
+//            //come up with better naming convention and try to look at Single Responsibility
+//            if (gettype($function) == 'string') {
+//
+//                $split = self::splitFunction($function);
+//
+//                self::$controller = $split[0];
+//                self::$method = $split[1];
+//
+//                self::doesClassExist();
+//                self::doesMethodExistsInClass(self::$controller);
+//
+//            }
+//        }
+//
+//    }
+
+
+    public function set($route, $function)
     {
-        self::$validRoutes[] = $route;
+        $this->validRoutes[$route] = $function;
 
-        if ($_GET['url'] == $route) {
-
-            if (is_callable($function)) {
-                $function->__invoke();
-            }
-
-            //come up with better naming convention and try to look at Single Responsibility
-            if (gettype($function) == 'string') {
-
-                $split = self::splitFunction($function);
-
-                self::$controller = $split[0];
-                self::$method = $split[1];
-
-                self::doesClassExist();
-                self::doesMethodExistsInClass(self::$controller);
-
-            }
-        }
-
+        var_dump($this->validRoutes);
     }
+
 
     public static function splitFunction($function)
     {
@@ -50,7 +64,7 @@ class Route
 
     }
 
-
+    //TODO need to re-engineer this
     //checks if class exists
     private static function doesClassExist()
     {

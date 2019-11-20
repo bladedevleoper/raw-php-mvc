@@ -21,7 +21,7 @@ class ComposerStaticInit7c0d4d2336c0e3ac9ae16a8b8400a995
     );
 
     public static $classMap = array (
-        'MVC\\Classes\\Routing\\Route' => __DIR__ . '/../..' . '/mvc/classes/Route.php',
+        'MVC\\Classes\\Routing\\Route' => __DIR__ . '/../..' . '/mvc/classes/Routing/Route.php',
         'MVC\\Controllers\\AboutController' => __DIR__ . '/../..' . '/mvc/Controllers/AboutController.php',
         'MVC\\Controllers\\Controller' => __DIR__ . '/../..' . '/mvc/Controllers/Controller.php',
         'MVC\\Request\\Request' => __DIR__ . '/../..' . '/mvc/classes/Request.php',

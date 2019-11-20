@@ -6,14 +6,14 @@ use MVC\View\View;
 class Controller
 {
 
-    protected $view;
+    protected static $view;
 
     public function __construct()
     {
-        $this->view = new View();
+        self::$view = new View();
     }
 
-    public function createView()
+    public static function createView()
     {
         echo 'view created';
     }
